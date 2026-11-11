@@ -64,7 +64,9 @@ def main():
                 for value in credentials.values():
                     if value:
                         diagnostic = diagnostic.replace(value, "[REDACTED]")
-                Path("data/validation/project-error.json").write_text(diagnostic, encoding="utf-8")
+                err_path = Path("data/validation/project-error.json")
+                err_path.parent.mkdir(parents=True, exist_ok=True)
+                err_path.write_text(diagnostic, encoding="utf-8")
                 raise SystemExit("创建项目失败，脱敏诊断已保存 data/validation/project-error.json。")
             project = body
         config = project["config"]
