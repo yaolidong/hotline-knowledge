@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-temporal",
+  "split": "train",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试甲区时限样例通知",
+    "region": "测试甲区",
+    "filename": "syn-temporal.txt",
+    "source_path": "sources/syn-temporal/source.txt",
+    "sha256": "9442b29d4823ec793eb9264cb7017178ae459273eed5b217e38f610f16684e52",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-temporal-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-temporal-c1",
+      "text": "测试甲区时限样例通知",
+      "page": 1,
+      "section": "测试甲区时限样例通知",
+      "start": 42,
+      "end": 52
+    },
+    {
+      "id": "syn-temporal-c2",
+      "text": "发文日期：2020年1月1日。施行日期：2099年1月1日。",
+      "page": 1,
+      "section": "发文日期：2020年1月1日。施行日期：",
+      "start": 53,
+      "end": 83
+    },
+    {
+      "id": "syn-temporal-c3",
+      "text": "第一条 事项名称：未来施行样例。办理部门：测试服务局。",
+      "page": 1,
+      "section": "第一条 事项名称：未来施行样例。办理部门",
+      "start": 84,
+      "end": 111
+    },
+    {
+      "id": "syn-temporal-c4",
+      "text": "第二条 本通知自2099年1月1日起施行。",
+      "page": 1,
+      "section": "第二条 本通知自2099年1月1日起施行",
+      "start": 112,
+      "end": 133
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-temporal-Ser-未来施行样例",
+      "type": "ServiceItem",
+      "name": "未来施行样例",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-temporal-c3",
+          "quote": "事项名称：未来施行样例"
+        }
+      ]
+    },
+    {
+      "id": "syn-temporal-Gov-测试服务局",
+      "type": "GovernmentDepartment",
+      "name": "测试服务局",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-temporal-c3",
+          "quote": "办理部门：测试服务局"
+        }
+      ]
+    },
+    {
+      "id": "syn-temporal-Pol-测试甲区时限样例",
+      "type": "PolicyDocument",
+      "name": "测试甲区时限样例通知",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-temporal-c1",
+          "quote": "时限样例通知"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "未来施行样例",
+      "type": "HANDLED_BY",
+      "target_name": "测试服务局"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q17",
+      "question": "未来施行样例现在是否有效？",
+      "expect_refuse": true,
+      "expect_status": "VALIDITY_UNCONFIRMED"
+    },
+    {
+      "id": "q18",
+      "question": "未来施行样例何时施行？",
+      "must_include": [
+        "2099"
+      ]
+    },
+    {
+      "id": "q19",
+      "question": "未来施行样例办理部门？",
+      "must_include": [
+        "测试服务局"
+      ]
+    },
+    {
+      "id": "q20",
+      "question": "能否认定该通知当前必然有效？",
+      "expect_refuse": true
+    },
+    {
+      "id": "q21",
+      "question": "未来施行样例收费标准？",
+      "expect_refuse": true
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}

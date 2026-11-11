@@ -1,0 +1,87 @@
+# 与锁定的 vendor/openspg/dev/release/docker-compose.yml 叠加使用。
+# 拓扑说明见 deploy/README.md：A 宿主机 Python+本机 Docker；B 含 hotline 服务；C Windows+WSL。
+# 镜像 tag/digest 必须明确指定，不能假定 latest 对应源码。
+services:
+  embedding:
+    ports:
+      - "127.0.0.1:8090:8090"
+    build:
+      context: ../../../../
+      dockerfile: deploy/embedding.Dockerfile
+    environment:
+      EMBEDDING_API_KEY: ${EMBEDDING_API_KEY:?请设置本地嵌入服务令牌}
+      EMBEDDING_MODEL: BAAI/bge-small-zh-v1.5
+    volumes:
+      - hotline_models:/models
+    restart: unless-stopped
+  server:
+    container_name: hotline-dev-openspg
+    image: ${OPENSPG_SERVER_IMAGE:?请指定经验证的 OpenSPG 服务镜像 tag 或 digest}
+    ports: !override
+      - "127.0.0.1:8887:8887"
+    command:
+      - java
+      - -Dfile.encoding=UTF-8
+      - -Xms2048m
+      - -Xmx8192m
+      - -jar
+      - arks-sofaboot-0.0.1-SNAPSHOT-executable.jar
+      - --server.repository.impl.jdbc.host=mysql
+      - --server.repository.impl.jdbc.password=${MYSQL_PASSWORD:?请设置 MySQL 密码}
+      - --builder.model.execute.num=4
+      - --logging.level.com.antgroup.openspg.server.api.http.server.openapi.ProjectController=WARN
+      - --logging.level.com.antgroup.openspg.arks.sofaboot.DatabaseEnvironmentPostProcessor=WARN
+      - --cloudext.graphstore.url=neo4j://neo4j:7687?user=neo4j&password=${GRAPH_PASSWORD:?请设置 Neo4j 密码}&database=neo4j
+      - --cloudext.searchengine.url=neo4j://neo4j:7687?user=neo4j&password=${GRAPH_PASSWORD:?请设置 Neo4j 密码}&database=neo4j
+  mysql:
+    container_name: hotline-dev-mysql
+    image: ${OPENSPG_MYSQL_IMAGE:?请指定 OpenSPG MySQL 镜像}
+    ports: !override []
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:?请设置 MySQL 密码}
+    volumes:
+      - hotline_mysql:/var/lib/mysql
+  neo4j:
+    container_name: hotline-dev-neo4j
+    image: ${OPENSPG_NEO4J_IMAGE:?请指定 OpenSPG Neo4j 镜像}
+    ports: !override
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/${GRAPH_PASSWORD:?请设置 Neo4j 密码}
+    volumes: !override
+      - hotline_graph:/data
+      - hotline_graph_logs:/logs
+  minio:
+    container_name: hotline-dev-minio
+    image: ${OPENSPG_MINIO_IMAGE:?请指定 OpenSPG MinIO 镜像}
+    ports: !override []
+    volumes:
+      - hotline_minio:/data
+  hotline:
+    build:
+      context: ../../../../
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file:
+      - ../../../../.env
+    environment:
+      HOTLINE_OPENSPG_URL: http://server:8887
+      HOTLINE_NEO4J_URI: bolt://neo4j:7687
+      HOTLINE_NEO4J_PASSWORD: ${GRAPH_PASSWORD:?请设置 Neo4j 密码}
+      HOTLINE_DATA_DIR: /app/data
+    volumes:
+      - hotline_files:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - server
+      - neo4j
+volumes:
+  hotline_models:
+  hotline_mysql:
+  hotline_graph:
+  hotline_graph_logs:
+  hotline_minio:
+  hotline_files:

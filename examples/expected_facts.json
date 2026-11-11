@@ -1,0 +1,16 @@
+{
+  "synthetic": true,
+  "note": "人工定义的部分合成样例检查项，不是全量基准、模型性能指标或真实政策",
+  "entities": [
+    ["ServiceItem", "示例登记"],
+    ["GovernmentDepartment", "测试服务局"],
+    ["RequiredMaterial", "测试申请表"],
+    ["ServiceChannel", "测试线上平台"]
+  ],
+  "relations": [
+    ["示例登记", "HANDLED_BY", "测试服务局"],
+    ["示例登记", "REQUIRES_MATERIAL", "测试申请表"],
+    ["示例登记", "HAS_CHANNEL", "测试线上平台"]
+  ],
+  "unanswerable": ["费用标准", "办理时限", "政策现行有效性", "申请人必然符合资格"]
+}

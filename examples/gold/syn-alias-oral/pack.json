@@ -1,0 +1,165 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-alias-oral",
+  "split": "train",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试甲区食品经营许可办事指南",
+    "region": "测试甲区",
+    "filename": "syn-alias-oral.txt",
+    "source_path": "sources/syn-alias-oral/source.txt",
+    "sha256": "c441b3a6d4b54533d9d3dc019bdf80f509198272cf03900e676271a23bb5ba62",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-alias-oral-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-alias-oral-c1",
+      "text": "测试甲区食品经营许可办事指南",
+      "page": 1,
+      "section": "测试甲区食品经营许可办事指南",
+      "start": 42,
+      "end": 56
+    },
+    {
+      "id": "syn-alias-oral-c2",
+      "text": "第一条 事项名称：食品经营许可。办理部门：测试市场监管局。",
+      "page": 1,
+      "section": "第一条 事项名称：食品经营许可。办理部门",
+      "start": 57,
+      "end": 86
+    },
+    {
+      "id": "syn-alias-oral-c3",
+      "text": "第二条 申请材料：食品经营许可申请表。",
+      "page": 1,
+      "section": "第二条 申请材料：食品经营许可申请表。",
+      "start": 87,
+      "end": 106
+    },
+    {
+      "id": "syn-alias-oral-c4",
+      "text": "第三条 申请条件：具有与经营相适应的场所。",
+      "page": 1,
+      "section": "第三条 申请条件：具有与经营相适应的场所",
+      "start": 107,
+      "end": 128
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-alias-oral-Ser-食品经营许可",
+      "type": "ServiceItem",
+      "name": "食品经营许可",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-alias-oral-c2",
+          "quote": "事项名称：食品经营许可"
+        }
+      ]
+    },
+    {
+      "id": "syn-alias-oral-Gov-测试市场监管局",
+      "type": "GovernmentDepartment",
+      "name": "测试市场监管局",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-alias-oral-c2",
+          "quote": "办理部门：测试市场监管局"
+        }
+      ]
+    },
+    {
+      "id": "syn-alias-oral-Req-食品经营许可申请",
+      "type": "RequiredMaterial",
+      "name": "食品经营许可申请表",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-alias-oral-c3",
+          "quote": "申请材料：食品经营许可申请表"
+        }
+      ]
+    },
+    {
+      "id": "syn-alias-oral-Eli-具有与经营相适应",
+      "type": "EligibilityCondition",
+      "name": "具有与经营相适应的场所",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-alias-oral-c4",
+          "quote": "申请条件：具有与经营相适应的场所"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "食品经营许可",
+      "type": "HANDLED_BY",
+      "target_name": "测试市场监管局"
+    },
+    {
+      "source_name": "食品经营许可",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "食品经营许可申请表"
+    },
+    {
+      "source_name": "食品经营许可",
+      "type": "REQUIRES_CONDITION",
+      "target_name": "具有与经营相适应的场所"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q32",
+      "question": "办食品经营许可证要什么材料？",
+      "must_include": [
+        "食品经营许可申请表"
+      ]
+    },
+    {
+      "id": "q33",
+      "question": "食品餐饮许可到哪个局？",
+      "must_include": [
+        "测试市场监管局"
+      ]
+    },
+    {
+      "id": "q34",
+      "question": "食品经营许可申请条件？",
+      "must_include": [
+        "场所"
+      ]
+    },
+    {
+      "id": "q35",
+      "question": "食品经营许可在测试乙区材料？",
+      "expect_refuse": true,
+      "forbidden_regions": []
+    },
+    {
+      "id": "q36",
+      "question": "食品经营许可费用？",
+      "expect_refuse": true
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "name": "hotline-gold-v0",
+  "note": "合成种子金标准；未覆盖真实政策；调参集 train 与 holdout 按文档拆分。",
+  "packs": [
+    {
+      "pack_id": "syn-jia-guide",
+      "split": "train",
+      "questions": 6,
+      "path": "examples\\gold\\syn-jia-guide\\pack.json"
+    },
+    {
+      "pack_id": "syn-yi-guide",
+      "split": "holdout",
+      "questions": 5,
+      "path": "examples\\gold\\syn-yi-guide\\pack.json"
+    },
+    {
+      "pack_id": "syn-material-or",
+      "split": "train",
+      "questions": 5,
+      "path": "examples\\gold\\syn-material-or\\pack.json"
+    },
+    {
+      "pack_id": "syn-temporal",
+      "split": "train",
+      "questions": 5,
+      "path": "examples\\gold\\syn-temporal\\pack.json"
+    },
+    {
+      "pack_id": "syn-conflict-a",
+      "split": "train",
+      "questions": 5,
+      "path": "examples\\gold\\syn-conflict-a\\pack.json"
+    },
+    {
+      "pack_id": "syn-conflict-b",
+      "split": "holdout",
+      "questions": 5,
+      "path": "examples\\gold\\syn-conflict-b\\pack.json"
+    },
+    {
+      "pack_id": "syn-alias-oral",
+      "split": "train",
+      "questions": 5,
+      "path": "examples\\gold\\syn-alias-oral\\pack.json"
+    },
+    {
+      "pack_id": "syn-missing-fee",
+      "split": "holdout",
+      "questions": 4,
+      "path": "examples\\gold\\syn-missing-fee\\pack.json"
+    }
+  ],
+  "totals": {
+    "packs": 8,
+    "questions": 40
+  }
+}

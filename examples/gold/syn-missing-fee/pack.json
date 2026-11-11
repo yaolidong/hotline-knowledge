@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-missing-fee",
+  "split": "holdout",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试甲区无费用指南",
+    "region": "测试甲区",
+    "filename": "syn-missing-fee.txt",
+    "source_path": "sources/syn-missing-fee/source.txt",
+    "sha256": "1a9159e348c03f5e563759c0ad18961562fe9aadc7d857a581d977c3e4c07707",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-missing-fee-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-missing-fee-c1",
+      "text": "测试甲区无费用指南",
+      "page": 1,
+      "section": "测试甲区无费用指南",
+      "start": 42,
+      "end": 51
+    },
+    {
+      "id": "syn-missing-fee-c2",
+      "text": "第一条 事项名称：无费用样例。办理部门：测试服务局。",
+      "page": 1,
+      "section": "第一条 事项名称：无费用样例。办理部门：",
+      "start": 52,
+      "end": 78
+    },
+    {
+      "id": "syn-missing-fee-c3",
+      "text": "第二条 申请材料：测试申请表。",
+      "page": 1,
+      "section": "第二条 申请材料：测试申请表。",
+      "start": 79,
+      "end": 94
+    },
+    {
+      "id": "syn-missing-fee-c4",
+      "text": "第三条 原文未写明收费标准与办理时限。",
+      "page": 1,
+      "section": "第三条 原文未写明收费标准与办理时限。",
+      "start": 95,
+      "end": 114
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-missing-fee-Ser-无费用样例",
+      "type": "ServiceItem",
+      "name": "无费用样例",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-missing-fee-c2",
+          "quote": "事项名称：无费用样例"
+        }
+      ]
+    },
+    {
+      "id": "syn-missing-fee-Gov-测试服务局",
+      "type": "GovernmentDepartment",
+      "name": "测试服务局",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-missing-fee-c2",
+          "quote": "办理部门：测试服务局"
+        }
+      ]
+    },
+    {
+      "id": "syn-missing-fee-Req-测试申请表",
+      "type": "RequiredMaterial",
+      "name": "测试申请表",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-missing-fee-c3",
+          "quote": "申请材料：测试申请表"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "无费用样例",
+      "type": "HANDLED_BY",
+      "target_name": "测试服务局"
+    },
+    {
+      "source_name": "无费用样例",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "测试申请表"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q37",
+      "question": "无费用样例收费标准是多少？",
+      "expect_refuse": true
+    },
+    {
+      "id": "q38",
+      "question": "无费用样例办理时限？",
+      "expect_refuse": true
+    },
+    {
+      "id": "q39",
+      "question": "无费用样例需要什么材料？",
+      "must_include": [
+        "测试申请表"
+      ]
+    },
+    {
+      "id": "q40",
+      "question": "无费用样例办理部门？",
+      "must_include": [
+        "测试服务局"
+      ]
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}

@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>政务热线 · 知识工作台</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/explore-chat.css" />
+    <link rel="stylesheet" href="/static/business.css" />
+    <script src="/static/d3-force-bundle.js" defer></script>
+    <script src="/static/graph-view.js" defer></script>
+    <script src="/static/source-viewer.js" defer></script>
+    <script src="/static/app.js" defer></script>
+    <script src="/static/graph-explorer.js" defer></script>
+    <script src="/static/chat-view.js" defer></script>
+    <script src="/static/knowledge-editor.js" defer></script>
+    <script src="/static/fact-review-ui.js" defer></script>
+    <script src="/static/business-ui.js" defer></script>
+    <script src="/static/directory-ui.js" defer></script>
+    <script src="/static/reasoning-ui.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳至主要内容</a>
+    <header class="app-header">
+      <div class="brand" aria-label="政务热线知识工作台">
+        <span class="brand-mark" aria-hidden="true">政</span>
+        <div>政务热线<span>知识工作台</span></div>
+      </div>
+      <div class="account">
+        <label id="space-control" hidden><select id="knowledge-space" aria-label="资料空间"><option value="production">正式资料</option><option value="test">合成测试（非政策）</option></select></label>
+        <span id="identity"></span
+        ><button id="logout" class="header-button" hidden>退出登录</button>
+      </div>
+    </header>
+    <section id="login" class="login">
+      <div class="login-intro">
+        <h1>把政策依据<br />放到接线现场</h1>
+      </div>
+      <div class="card login-card">
+        <h2>登录工作台</h2>
+        <form id="login-form">
+          <label
+            >访问令牌<input
+              id="token"
+              type="password"
+              autocomplete="off"
+              placeholder="粘贴管理员分配的令牌"
+              required /></label
+          ><button type="submit">进入工作台</button>
+        </form>
+        <div id="login-error" role="alert"></div>
+      </div>
+    </section>
+    <div id="workspace" hidden>
+      <nav data-role="nav" class="sidebar" aria-label="工作区">
+        <button data-tab="query" class="active">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h16v12H9l-5 4V4Z M8 8h8 M8 12h5" /></svg
+          >客服查询
+        </button>
+        <button data-tab="graph">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="5" r="3" />
+            <circle cx="5" cy="18" r="3" />
+            <circle cx="19" cy="18" r="3" />
+            <path d="m10 8-4 7m8-7 4 7M8 18h8" /></svg
+          >知识图谱
+        </button>
+        <button data-tab="services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v15H4zM8 3v4m8-4v4M8 11h8m-8 4h5" /></svg>事项工作台</button>
+        <hr class="nav-divider" data-maintain />
+        <button data-tab="import" data-maintain>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 14v6h16v-6M12 16V3m-5 5 5-5 5 5" /></svg
+          >数据导入
+        </button>
+        <button data-tab="results" data-maintain>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 3h10l4 4v14H5V3Zm10 0v5h4M8 12h8m-8 4h6" /></svg
+          >抽取结果
+        </button>
+        <button data-tab="review" data-maintain>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z M8 12l3 3 5-6"
+            /></svg
+          >审核与维护
+        </button>
+        <button data-tab="diagnostics" data-maintain><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6" /><path d="m15 15 5 5M7 10h6m-3-3v6" /></svg>检索诊断</button>
+        <button data-tab="feedback" data-maintain><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4V4Zm4 4h8m-8 4h5" /></svg>答复反馈</button>
+        <button data-tab="operations" data-maintain><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3v17h17M8 15v-4m5 4V6m5 9V9" /></svg>运营概览</button>
+      </nav>
+      <main id="main-content" class="workspace-main">
+        <div id="test-space-banner" class="space-banner" hidden>合成测试空间 · 此处内容仅用于验证系统，不能作为办理依据。</div>
+        <div id="notification" role="status" hidden></div>
+        <section id="tab-services" class="tab" hidden>
+          <div class="page-title"><h1>事项工作台</h1><span class="badge published">已发布知识</span></div>
+          <form id="services-filter" class="filter-bar"><label>事项关键词<input name="keyword" maxlength="300" /></label><label>地区<input name="region" maxlength="100" /></label><button>查找事项</button></form>
+          <div id="services-summary" role="status"></div><div id="services-list" class="service-grid"></div>
+          <div class="actions"><button id="services-prev" class="secondary">上一页</button><button id="services-next" class="secondary">下一页</button></div>
+          <div id="service-detail"></div>
+        </section>
+        <section id="tab-diagnostics" class="tab" hidden>
+          <div class="page-title"><h1>检索诊断</h1></div>
+          <form id="diagnostic-form" class="card"><label>问题<textarea name="question" required minlength="2" maxlength="1000" rows="2"></textarea></label><div class="form-grid"><label>地区<input name="region" maxlength="100" /></label><label>事项<input name="service" maxlength="300" /></label><label>事项编码<input name="service_code" maxlength="100" /></label><label>查询日期<input name="as_of" type="date" /></label></div><button>运行检索诊断</button></form>
+          <div id="diagnostic-results"></div>
+        </section>
+        <section id="tab-feedback" class="tab" hidden>
+          <div class="page-title"><h1>答复反馈</h1><button id="feedback-refresh" class="secondary">刷新反馈</button></div><div id="feedback-list"></div>
+          <div class="actions"><button id="feedback-prev" class="secondary">上一页</button><button id="feedback-next" class="secondary">下一页</button></div>
+        </section>
+        <section id="tab-operations" class="tab" hidden>
+          <div class="page-title"><h1>知识运营概览</h1></div>
+          <form id="operations-filter" class="filter-bar"><label>统计时间<select name="days"><option value="7">最近 7 天</option><option value="1">最近 1 天</option><option value="30">最近 30 天</option></select></label><button>刷新概览</button></form>
+          <div id="operations-summary"></div>
+        </section>
+        <section id="tab-query" class="tab chat-workspace">
+          <div class="chat-heading">
+            <div>
+              <h1>政务知识助手</h1>
+            </div>
+            <div class="chat-heading-actions">
+              <span class="badge published">已发布知识</span
+              ><button id="chat-new" class="secondary">新对话</button>
+            </div>
+          </div>
+          <div class="chat-layout">
+            <div class="chat-main">
+              <div id="chat-scroll" class="chat-scroll">
+                <div id="chat-welcome" class="chat-welcome">
+                  <span class="assistant-emblem" aria-hidden="true">政</span>
+                  <h2>这通来电，需要了解什么？</h2>
+                  <div class="chat-suggestions">
+                    <button
+                      type="button"
+                      class="secondary"
+                      data-question="这项业务需要提交哪些申请材料？"
+                    >
+                      准备材料
+                    </button>
+                    <button
+                      type="button"
+                      class="secondary"
+                      data-question="这项业务有哪些申请条件和排除情形？"
+                    >
+                      核对条件
+                    </button>
+                    <button
+                      type="button"
+                      class="secondary"
+                      data-question="这项业务由哪个部门办理，是否支持线上办理？"
+                    >
+                      办理渠道
+                    </button>
+                    <button
+                      type="button"
+                      class="secondary"
+                      data-question="这项业务依据哪些政策文件？"
+                    >
+                      政策依据
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="answer"
+                  class="chat-messages"
+                  role="log"
+                  aria-label="问答记录"
+                  aria-live="polite"
+                  aria-relevant="additions"
+                ></div>
+              </div>
+              <form id="query-form" class="chat-composer">
+                <details class="chat-scope">
+                  <summary>
+                    查询范围
+                    <span id="chat-scope-summary"
+                      >自动识别 · 默认今天</span
+                    >
+                  </summary>
+                  <div class="chat-scope-fields">
+                    <label
+                      >适用地区<input
+                        name="region"
+                        maxlength="100"
+                        placeholder="省 / 市 / 区"
+                    /></label>
+                    <label
+                      >事项名称<input
+                        name="service"
+                        maxlength="300"
+                        placeholder="填写完整事项名称"
+                    /></label>
+                    <label>查询日期<input type="date" name="as_of" /></label>
+                    <label>实施事项编码<input name="service_code" maxlength="100" placeholder="可选" /></label>
+                  </div>
+                  <p class="scope-help">追问沿用当前范围；更换业务可新建对话。</p>
+                </details>
+                <label class="sr-only" for="chat-question">来电问题</label>
+                <textarea
+                  id="chat-question"
+                  name="question"
+                  rows="2"
+                  required
+                  minlength="2"
+                  maxlength="1000"
+                  placeholder="输入问题，或在当前事项范围内继续追问…"
+                ></textarea>
+                <div class="chat-compose-actions">
+                  <label class="inline-label"
+                    ><span class="sr-only">回答方式</span><select id="query-mode">
+                      <option value="qa">AI 证据问答</option>
+                      <option value="query">结构化知识查询</option>
+                    </select></label
+                  >
+                  <span class="chat-key-hint"
+                    >Enter 发送 · Shift + Enter 换行</span
+                  >
+                  <button id="chat-stop" type="button" class="secondary" hidden>
+                    停止等待
+                  </button>
+                  <button type="submit" id="chat-send">
+                    发送
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 20 20"
+                      width="18"
+                      height="18"
+                    >
+                      <path
+                        d="M10 16V4m-5 5 5-5 5 5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <p class="chat-footnote">
+                  答复供客服核对，不作资格裁定。
+                </p>
+              </form>
+            </div>
+            <aside
+              id="chat-evidence"
+              class="chat-evidence"
+              aria-label="回答依据"
+            >
+              <div class="evidence-heading">
+                <h2>回答依据</h2>
+                <span id="chat-source-count" class="badge">待查询</span
+                ><button
+                  type="button"
+                  id="chat-evidence-close"
+                  class="secondary"
+                >
+                  收起
+                </button>
+              </div>
+              <div id="chat-source-list">
+                <div class="evidence-placeholder">
+                  <span class="evidence-glyph" aria-hidden="true">§</span>
+                  <p>引用原文将显示在这里</p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+        <section id="tab-import" class="tab" hidden>
+          <div class="page-title">
+            <div>
+              <h1>数据导入</h1>
+            </div>
+          </div>
+          <div class="import-layout">
+            <form id="import-form" class="card">
+              <div class="segmented" role="group" aria-label="导入方式">
+                <button type="button" id="import-file-mode" aria-pressed="true">
+                  上传文件</button
+                ><button
+                  type="button"
+                  id="import-text-mode"
+                  aria-pressed="false"
+                >
+                  粘贴文本
+                </button>
+              </div>
+              <div id="file-import-panel">
+                <label class="upload-zone" id="drop-zone"
+                  ><span class="upload-symbol" aria-hidden="true"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      width="22"
+                      height="22"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        d="M12 19V5m-6 6 6-6 6 6M4 17v4h16v-4"
+                      /></svg></span
+                  ><strong>选择文件，或拖放到这里</strong
+                  ><span>PDF / DOCX / TXT / PNG / JPEG / WebP</span
+                  ><input
+                    id="files"
+                    type="file"
+                    accept=".pdf,.docx,.txt,.png,.jpg,.jpeg,.webp"
+                    multiple
+                    aria-label="选择待导入文件"
+                /></label>
+                <p id="upload-limit" class="muted small">
+                  每批最多 10 个文件，总计不超过 20 MB。
+                </p>
+                <div id="selected-files" aria-live="polite"></div>
+                <label
+                  >文字识别方式<select name="ocr_mode">
+                    <option value="auto">
+                      自动：优先读取文字，扫描页启用 OCR
+                    </option>
+                    <option value="force">
+                      强制 OCR：重新识别 PDF 全部页面及图片
+                    </option>
+                    <option value="off">关闭 OCR：仅读取文件文字层</option>
+                  </select></label
+                >
+                <p class="field-help">
+                  若扫描页仅提取到页眉，或原有文字层有乱码，请选择强制 OCR。
+                </p>
+              </div>
+              <div id="text-import-panel" hidden>
+                <label
+                  >政策或办事指南正文<textarea
+                    name="text"
+                    rows="10"
+                    placeholder="粘贴完整正文，保留标题、条款、条件和附件说明。"
+                  ></textarea>
+                </label>
+              </div>
+              <div class="section-heading separated">
+                <h2>来源信息</h2>
+              </div>
+              <div class="row">
+                <label
+                  >文档标题<input
+                    name="title"
+                    maxlength="300"
+                    placeholder="留空则使用文件名" /></label
+                ><label
+                  >文档类型<select name="document_type">
+                    <option value="guide">办事指南</option>
+                    <option value="policy">政策法规</option>
+                    <option value="notice">公文通知</option>
+                  </select></label
+                >
+              </div>
+              <div class="row">
+                <label
+                  >适用地区<input
+                    name="region"
+                    maxlength="100"
+                    placeholder="请填写原文明确的适用地区" /></label
+                ><label
+                  >发文字号<input
+                    name="document_number"
+                    maxlength="150"
+                    placeholder="如有，请按原文填写"
+                /></label>
+              </div>
+              <label
+                >来源信息<input
+                  name="source"
+                  maxlength="1000"
+                  placeholder="政府网站原文链接，或资料来源说明"
+              /></label>
+              <div class="form-footer">
+                <label class="checkbox"
+                  ><input
+                    name="synthetic"
+                    type="checkbox"
+                  />这是一份合成测试资料</label
+                ><button type="submit">创建处理任务</button>
+              </div>
+              <div id="import-result" aria-live="polite"></div>
+            </form>
+            <aside class="import-guide">
+              <div class="card">
+                <h2>处理服务</h2>
+                <div id="service-status" aria-live="polite">正在检查…</div>
+              </div>
+              <p class="import-review-note">抽取结果经审核发布后，才可用于客服查询。</p>
+            </aside>
+          </div>
+        </section>
+        <section id="tab-results" class="tab" hidden>
+          <div class="page-title">
+            <div>
+              <h1>知识抽取结果</h1>
+            </div>
+            <button id="refresh-results" class="secondary">刷新列表</button>
+          </div>
+          <form id="results-filter" class="library-filter">
+            <input
+              name="search"
+              aria-label="搜索处理任务"
+              placeholder="搜索标题、文件名或地区"
+            /><select name="state" aria-label="任务状态">
+              <option value="">全部状态</option>
+              <option value="RUNNING">正在处理</option>
+              <option value="FAILED">处理失败</option>
+              <option value="PARTIAL">部分完成</option>
+              <option value="DRAFT">待审核</option>
+              <option value="PUBLISHED">已发布</option></select
+            ><button class="secondary">筛选</button
+            ><span id="results-count" class="muted small"></span>
+          </form>
+          <div id="results-list"></div>
+          <div class="pager">
+            <button id="results-prev" class="secondary">上一页</button
+            ><span id="results-page" class="muted small"></span
+            ><button id="results-next" class="secondary">下一页</button>
+          </div>
+          <div id="extraction-detail"></div>
+        </section>
+        <section id="tab-graph" class="tab" hidden>
+          <div class="page-title">
+            <div>
+              <h1>知识图谱</h1>
+            </div>
+          </div>
+          <form id="graph-form" class="card filters">
+            <input type="hidden" name="revision_id" value="" />
+            <input
+              name="keyword"
+              aria-label="节点关键词"
+              placeholder="搜索节点关键词"
+            /><select
+              name="entity_type"
+              id="entity-filter"
+              aria-label="实体类型"
+            >
+              <option value="">全部实体类型</option></select
+            ><select
+              name="relation_type"
+              id="relation-filter"
+              aria-label="关系类型"
+            >
+              <option value="">全部关系类型</option></select
+            ><input
+              name="region"
+              aria-label="行政区划"
+              placeholder="行政区划"
+            /><input
+              name="service"
+              aria-label="事项"
+              placeholder="事项名称"
+            /><button>检索图谱</button>
+          </form>
+          <div id="graph-record-scope" class="actions" hidden>
+            <span id="graph-record-title"></span>
+            <button type="button" id="graph-clear-record" class="secondary">全部资料</button>
+          </div>
+          <div class="graph-layout">
+            <div class="card graph-panel">
+              <div class="graph-scene-heading">
+                <div>
+                  <span id="graph-counts" class="muted small">尚未检索</span>
+                </div>
+                <label class="graph-layout-control"
+                  >布局<select id="graph-layout-mode">
+                    <option value="force">力导向</option>
+                    <option value="radial">环形</option>
+                  </select></label
+                >
+              </div>
+              <div
+                id="graph-legend"
+                class="graph-legend"
+                aria-label="当前图谱实体类型"
+              ></div>
+              <div class="graph-toolbar" aria-label="图谱视图控制">
+                <button id="graph-zoom-in" type="button" class="secondary">
+                  放大 +</button
+                ><button id="graph-zoom-out" type="button" class="secondary">
+                  缩小 −</button
+                ><output id="graph-zoom-level" aria-live="polite">100%</output
+                ><button id="graph-fit" type="button" class="secondary">
+                  适应画布</button
+                ><button id="graph-fullscreen" type="button" class="secondary">
+                  全屏</button
+                ><button
+                  id="graph-clear-selection"
+                  type="button"
+                  class="secondary"
+                >
+                  清除选中</button
+                ><label class="graph-label-toggle"
+                  ><input id="graph-sources" type="checkbox" />来源节点</label
+                ><label class="graph-label-toggle"
+                  ><input
+                    id="graph-labels"
+                    type="checkbox"
+                    checked
+                  />关系名称</label
+                >
+              </div>
+              <div id="graph-empty" class="graph-empty">
+                <p>输入关键词，检索图谱</p>
+              </div>
+              <svg
+                id="graph-canvas"
+                viewBox="0 0 900 620"
+                role="group"
+                tabindex="0"
+                aria-label="知识图谱"
+              ></svg>
+              <div class="graph-footer">
+                <p id="graph-message" class="muted"></p>
+                <div class="pager">
+                  <button id="graph-prev" class="secondary">上一页</button
+                  ><button id="graph-next" class="secondary">下一页</button
+                  ><button id="graph-reset" class="secondary">重置邻域</button>
+                </div>
+              </div>
+            </div>
+            <aside id="graph-detail" class="card">
+              <h2>选择节点或关系</h2>
+            </aside>
+          </div>
+        </section>
+        <section id="tab-review" class="tab" hidden>
+          <div class="page-title">
+            <div>
+              <h1>审核与维护</h1>
+            </div>
+            <button id="refresh-review" class="secondary">刷新列表</button>
+          </div>
+          <form id="review-filter" class="library-filter">
+            <input
+              name="search"
+              aria-label="搜索审核资料"
+              placeholder="搜索标题、文件名或地区"
+            /><select name="state" aria-label="知识状态">
+              <option value="DRAFT">待审核</option>
+              <option value="APPROVED">已审核，待发布</option>
+              <option value="PUBLISHED">已发布</option>
+              <option value="REJECTED">已拒绝</option>
+              <option value="RETIRED">已停用</option>
+              <option value="">全部状态</option></select
+            ><button class="secondary">筛选</button
+            ><span id="review-count" class="muted small"></span>
+          </form>
+          <div id="review-list"></div>
+          <div class="pager">
+            <button id="review-prev" class="secondary">上一页</button
+            ><span id="review-page" class="muted small"></span
+            ><button id="review-next" class="secondary">下一页</button>
+          </div>
+          <div id="review-detail"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

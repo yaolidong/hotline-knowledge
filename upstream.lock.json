@@ -1,0 +1,4 @@
+{
+  "KAG": {"url": "https://github.com/OpenSPG/KAG.git", "commit": "fdab15b3929d2ee40dfcdd388f90233096a6afc9", "version": "0.8.0"},
+  "openspg": {"url": "https://github.com/OpenSPG/openspg.git", "commit": "ceeb3ef549df79ca4c4878e7ff452c73584991f3"}
+}

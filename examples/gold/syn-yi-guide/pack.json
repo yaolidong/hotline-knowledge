@@ -1,0 +1,217 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-yi-guide",
+  "split": "holdout",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试乙区示例登记办事指南",
+    "region": "测试乙区",
+    "filename": "syn-yi-guide.txt",
+    "source_path": "sources/syn-yi-guide/source.txt",
+    "sha256": "369414a059abec9073088d082fb022323cdfe6c37cab0eba7c88a36ebc306bfc",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-yi-guide-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-yi-guide-c1",
+      "text": "测试乙区示例登记办事指南",
+      "page": 1,
+      "section": "测试乙区示例登记办事指南",
+      "start": 42,
+      "end": 54
+    },
+    {
+      "id": "syn-yi-guide-c2",
+      "text": "第一条 事项名称：示例登记。办理部门：测试乙区服务中心。",
+      "page": 1,
+      "section": "第一条 事项名称：示例登记。办理部门：测",
+      "start": 55,
+      "end": 83
+    },
+    {
+      "id": "syn-yi-guide-c3",
+      "text": "第二条 申请材料：测试申请表；乙区居住证明。",
+      "page": 1,
+      "section": "第二条 申请材料：测试申请表；乙区居住证",
+      "start": 84,
+      "end": 106
+    },
+    {
+      "id": "syn-yi-guide-c4",
+      "text": "第三条 申请条件：年满十八周岁且居住在测试乙区。",
+      "page": 1,
+      "section": "第三条 申请条件：年满十八周岁且居住在测",
+      "start": 107,
+      "end": 131
+    },
+    {
+      "id": "syn-yi-guide-c5",
+      "text": "第四条 办理渠道：乙区线下窗口。",
+      "page": 1,
+      "section": "第四条 办理渠道：乙区线下窗口。",
+      "start": 132,
+      "end": 148
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-yi-guide-Ser-示例登记",
+      "type": "ServiceItem",
+      "name": "示例登记",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-yi-guide-c2",
+          "quote": "事项名称：示例登记"
+        }
+      ]
+    },
+    {
+      "id": "syn-yi-guide-Gov-测试乙区服务中心",
+      "type": "GovernmentDepartment",
+      "name": "测试乙区服务中心",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-yi-guide-c2",
+          "quote": "办理部门：测试乙区服务中心"
+        }
+      ]
+    },
+    {
+      "id": "syn-yi-guide-Req-测试申请表",
+      "type": "RequiredMaterial",
+      "name": "测试申请表",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-yi-guide-c3",
+          "quote": "申请材料：测试申请表"
+        }
+      ]
+    },
+    {
+      "id": "syn-yi-guide-Req-乙区居住证明",
+      "type": "RequiredMaterial",
+      "name": "乙区居住证明",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-yi-guide-c3",
+          "quote": "乙区居住证明"
+        }
+      ]
+    },
+    {
+      "id": "syn-yi-guide-Eli-年满十八周岁且居",
+      "type": "EligibilityCondition",
+      "name": "年满十八周岁且居住在测试乙区",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-yi-guide-c4",
+          "quote": "申请条件：年满十八周岁且居住在测试乙区"
+        }
+      ]
+    },
+    {
+      "id": "syn-yi-guide-Ser-乙区线下窗口",
+      "type": "ServiceChannel",
+      "name": "乙区线下窗口",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-yi-guide-c5",
+          "quote": "办理渠道：乙区线下窗口"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "示例登记",
+      "type": "HANDLED_BY",
+      "target_name": "测试乙区服务中心"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "测试申请表"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "乙区居住证明"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "REQUIRES_CONDITION",
+      "target_name": "年满十八周岁且居住在测试乙区"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "HAS_CHANNEL",
+      "target_name": "乙区线下窗口"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q7",
+      "question": "测试乙区示例登记需要什么材料？",
+      "must_include": [
+        "乙区居住证明"
+      ],
+      "forbidden_regions": [
+        "测试甲区"
+      ]
+    },
+    {
+      "id": "q8",
+      "question": "测试乙区示例登记到哪个部门？",
+      "must_include": [
+        "测试乙区服务中心"
+      ],
+      "forbidden_regions": [
+        "测试服务局"
+      ]
+    },
+    {
+      "id": "q9",
+      "question": "测试甲区示例登记在乙区能否按甲区材料办理？",
+      "expect_refuse": true,
+      "forbidden_regions": []
+    },
+    {
+      "id": "q10",
+      "question": "测试乙区示例登记线上渠道？",
+      "must_include": [
+        "乙区线下窗口"
+      ]
+    },
+    {
+      "id": "q11",
+      "question": "测试乙区示例登记申请条件？",
+      "must_include": [
+        "测试乙区"
+      ]
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}

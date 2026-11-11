@@ -1,0 +1,147 @@
+{
+  "version": 2,
+  "rule_entities": ["EligibilityCondition", "RequiredMaterial"],
+  "logic_markers": {
+    "AND": ["同时", "并且", "且", "均", "全部", "以下条件", "下列条件"],
+    "OR": ["或", "任一", "任选", "二选一"],
+    "NOT": ["不", "不得", "禁止", "排除", "除外", "除", "无"]
+  },
+  "entities": {
+    "PolicyDocument": {
+      "label": "政策文件",
+      "attributes": [
+        "document_number",
+        "issued_on",
+        "effective_on",
+        "expires_on",
+        "repealed_on",
+        "document_type"
+      ]
+    },
+    "PolicyProvision": {
+      "label": "政策条款",
+      "attributes": ["provision_number", "content"]
+    },
+    "GovernmentDepartment": {
+      "label": "政府部门",
+      "attributes": ["level", "address", "telephone"]
+    },
+    "ServiceItem": {
+      "label": "政务事项",
+      "attributes": ["service_code", "fees", "time_limit", "applicants", "applicant_scope"]
+    },
+    "EligibilityCondition": { "label": "办理条件", "attributes": ["content"] },
+    "RequiredMaterial": {
+      "label": "申请材料",
+      "attributes": ["copies", "format", "content"]
+    },
+    "ProcedureStep": {
+      "label": "办理步骤",
+      "attributes": ["order", "content"]
+    },
+    "ServiceChannel": {
+      "label": "办理渠道",
+      "attributes": ["url", "address", "channel_type"]
+    },
+    "AdministrativeRegion": {
+      "label": "行政区划",
+      "attributes": ["region_code", "level"]
+    },
+    "LegalBasis": {
+      "label": "政策依据",
+      "attributes": ["document_number", "provision_number", "content"]
+    }
+  },
+  "relations": {
+    "ISSUED_BY": {
+      "label": "发布机关",
+      "sources": ["PolicyDocument"],
+      "targets": ["GovernmentDepartment"]
+    },
+    "APPLIES_TO_REGION": {
+      "label": "适用地区",
+      "sources": ["PolicyDocument", "ServiceItem"],
+      "targets": ["AdministrativeRegion"]
+    },
+    "CONTAINS_PROVISION": {
+      "label": "包含条款",
+      "sources": ["PolicyDocument"],
+      "targets": ["PolicyProvision"]
+    },
+    "HANDLED_BY": {
+      "label": "办理部门",
+      "sources": ["ServiceItem"],
+      "targets": ["GovernmentDepartment"]
+    },
+    "REQUIRES_CONDITION": {
+      "label": "办理条件",
+      "sources": ["ServiceItem"],
+      "targets": ["EligibilityCondition"]
+    },
+    "REQUIRES_MATERIAL": {
+      "label": "申请材料",
+      "sources": ["ServiceItem"],
+      "targets": ["RequiredMaterial"]
+    },
+    "HAS_PROCEDURE": {
+      "label": "办理流程",
+      "sources": ["ServiceItem"],
+      "targets": ["ProcedureStep"]
+    },
+    "HAS_CHANNEL": {
+      "label": "办理渠道",
+      "sources": ["ServiceItem"],
+      "targets": ["ServiceChannel"]
+    },
+    "BASED_ON": {
+      "label": "政策依据",
+      "sources": ["ServiceItem", "PolicyProvision", "EligibilityCondition"],
+      "targets": ["LegalBasis", "PolicyProvision", "PolicyDocument"]
+    },
+    "AMENDS": {
+      "label": "修订",
+      "sources": ["PolicyDocument"],
+      "targets": ["PolicyDocument"]
+    },
+    "REPEALS": {
+      "label": "废止",
+      "sources": ["PolicyDocument"],
+      "targets": ["PolicyDocument"]
+    },
+    "SUPPLEMENTS": {
+      "label": "补充",
+      "sources": ["PolicyDocument"],
+      "targets": ["PolicyDocument"]
+    },
+    "SUPERSEDES": {
+      "label": "替代",
+      "sources": ["PolicyDocument"],
+      "targets": ["PolicyDocument"]
+    },
+    "RELATED_TO": {
+      "label": "相关联",
+      "sources": ["PolicyDocument", "ServiceItem", "PolicyProvision"],
+      "targets": ["PolicyDocument", "ServiceItem", "PolicyProvision"]
+    }
+  },
+  "strategies": {
+    "policy": "重点抽取条款、适用范围、管理主体、法律依据、完整条件和明确有效期。",
+    "notice": "重点抽取发布单位、通知对象、执行要求、时间节点及有明文证据的修订废止关系。",
+    "guide": "重点抽取事项、办理部门、完整申请条件及排除条件、材料清单、流程、渠道、时限及费用。事项名称优先使用原文明示的事项名称字段，避免把带地区的文件标题再建为另一个事项。明确属于该事项的条件、材料、流程、渠道和政策依据应直接关联 ServiceItem，条款提供证据；不能把无明确归属的要求强行关联。"
+  },
+  "attribute_guidance": {
+    "document_number": "正式发文字号，不能填写文件标题、书名号中的政策名称或条款编号；没有文号则不填写。",
+    "order": "仅填写原文中明确的步骤序号，不把自然语言顺序改写为数字。",
+    "copies": "材料份数，必须是原文明示的数量。原件、复印件属于 format，不是 copies。",
+    "time_limit": "逐字保留完整办理期限及其延长条件、例外和告知义务，不能仅摘一个天数。",
+    "channel_type": "必须是实际受理或办理渠道；通知、告知方式不能自动视为办理渠道。"
+  },
+  "intents": {
+    "HANDLED_BY": ["哪个部门", "什么部门", "谁办理", "办理部门", "主管部门"],
+    "REQUIRES_MATERIAL": ["材料", "提交", "证件"],
+    "REQUIRES_CONDITION": ["条件", "资格", "适用人群", "哪些群体", "对象"],
+    "HAS_PROCEDURE": ["流程", "步骤", "怎么办理"],
+    "HAS_CHANNEL": ["渠道", "线上", "网上", "在哪办", "哪里办"],
+    "BASED_ON": ["依据", "哪条规定", "法律"]
+  }
+}

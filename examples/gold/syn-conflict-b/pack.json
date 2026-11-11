@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-conflict-b",
+  "split": "holdout",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试甲区冲突样例指南乙",
+    "region": "测试甲区",
+    "filename": "syn-conflict-b.txt",
+    "source_path": "sources/syn-conflict-b/source.txt",
+    "sha256": "c993a705918c677ae6c0d8a22f071a8051032c61f227b531c7615fa84f8de885",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-conflict-b-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-conflict-b-c1",
+      "text": "测试甲区冲突样例指南乙",
+      "page": 1,
+      "section": "测试甲区冲突样例指南乙",
+      "start": 42,
+      "end": 53
+    },
+    {
+      "id": "syn-conflict-b-c2",
+      "text": "第一条 事项名称：冲突样例事项。办理部门：测试服务局。",
+      "page": 1,
+      "section": "第一条 事项名称：冲突样例事项。办理部门",
+      "start": 54,
+      "end": 81
+    },
+    {
+      "id": "syn-conflict-b-c3",
+      "text": "第二条 申请材料：材料乙。",
+      "page": 1,
+      "section": "第二条 申请材料：材料乙。",
+      "start": 82,
+      "end": 95
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-conflict-b-Ser-冲突样例事项",
+      "type": "ServiceItem",
+      "name": "冲突样例事项",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-conflict-b-c2",
+          "quote": "事项名称：冲突样例事项"
+        }
+      ]
+    },
+    {
+      "id": "syn-conflict-b-Gov-测试服务局",
+      "type": "GovernmentDepartment",
+      "name": "测试服务局",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-conflict-b-c2",
+          "quote": "办理部门：测试服务局"
+        }
+      ]
+    },
+    {
+      "id": "syn-conflict-b-Req-材料乙",
+      "type": "RequiredMaterial",
+      "name": "材料乙",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-conflict-b-c3",
+          "quote": "申请材料：材料乙"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "冲突样例事项",
+      "type": "HANDLED_BY",
+      "target_name": "测试服务局"
+    },
+    {
+      "source_name": "冲突样例事项",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "材料乙"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q27",
+      "question": "冲突样例事项指南乙需要什么材料？",
+      "must_include": [
+        "材料乙"
+      ]
+    },
+    {
+      "id": "q28",
+      "question": "若甲乙指南同时发布，材料要求是否相同？",
+      "expect_refuse": true
+    },
+    {
+      "id": "q29",
+      "question": "冲突样例事项办理部门？",
+      "must_include": [
+        "测试服务局"
+      ]
+    },
+    {
+      "id": "q30",
+      "question": "冲突样例事项时限？",
+      "expect_refuse": true
+    },
+    {
+      "id": "q31",
+      "question": "冲突样例事项渠道？",
+      "expect_refuse": true
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}

@@ -1,0 +1,6 @@
+{
+  "server": "spg-registry.us-west-1.cr.aliyuncs.com/spg/openspg-server@sha256:bff4912798c0c4ca15c21fbfb8a6f75572ec2bb133964d9bc7c233c7b449f571",
+  "mysql": "spg-registry.us-west-1.cr.aliyuncs.com/spg/openspg-mysql@sha256:b7ccdaa341c343920f6b990dee636340bdf28b21c4c6b041985f0e09b780e652",
+  "neo4j": "spg-registry.us-west-1.cr.aliyuncs.com/spg/openspg-neo4j@sha256:674c740c32eac9f0c6779ff73d8e3fda5da5e933e8b1ac8348c1f5391d524952",
+  "minio": "spg-registry.us-west-1.cr.aliyuncs.com/spg/openspg-minio@sha256:851c4f3b8cc18d5adc51aa94cb2218255694cb852ba3dbc79050f049f6a530ff"
+}

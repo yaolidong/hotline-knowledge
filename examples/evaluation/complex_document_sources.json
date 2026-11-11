@@ -1,0 +1,46 @@
+[
+  {
+    "id": "fuxin_food_guide_pdf",
+    "filename": "fuxin_food_guide.pdf",
+    "title": "食品经营许可证（餐饮）服务指南",
+    "region": "辽宁省阜新市太平区",
+    "document_type": "guide",
+    "url": "https://www.fxtp.gov.cn/tpq/file/2022-11-25/16693641368954028e49284871fcf7400184addb3bbf6f19.pdf",
+    "source_page": "https://www.fxtp.gov.cn/tpq/file/2022-11-25/16693641368954028e49284871fcf7400184addb3bbf6f19.pdf",
+    "sha256": "d3809c273a7df31fa24c6ba16244a757f108837ef4dde8b227b0d5ce473512ea",
+    "note": "真实公开原件，仅用于解析与建图评测；未核实当前有效性，不自动审核发布。"
+  },
+  {
+    "id": "wuhan_subsidy_scan",
+    "filename": "wuhan_subsidy_scan.pdf",
+    "title": "市科技创新局关于申报2025年企业牵头承担国家科技项目配套补贴的通知",
+    "region": "湖北省武汉市",
+    "document_type": "notice",
+    "url": "https://kjj.wuhan.gov.cn/wmfw/tzgg/tzgg_18371/202504/P020250402563361944943.pdf",
+    "source_page": "https://kjj.wuhan.gov.cn/wmfw/tzgg/tzgg_18371/202504/t20250402_2561761.html",
+    "sha256": "0cb9fdd2a245ff9bbd7eeceaa4ed2ff29e18355de5c2519c24ce9291b7000d11",
+    "note": "真实公开原件，仅用于解析与建图评测；未核实当前有效性，不自动审核发布。"
+  },
+  {
+    "id": "liping_food_guide",
+    "filename": "luoping_food_guide.pdf",
+    "title": "食品经营许可新办审批（县级权限）办事指南",
+    "region": "贵州省黔东南苗族侗族自治州黎平县",
+    "document_type": "guide",
+    "url": "https://www.lp.gov.cn/zwgk/zdlyxxgk/spypjg/202407/P020250806534056853538.pdf",
+    "source_page": "https://www.lp.gov.cn/zwgk/zdlyxxgk/spypjg/202407/P020250806534056853538.pdf",
+    "sha256": "97d8b44ef323a52e2f382b582738d6c6bcda2bf7c0c9d98e534307d10c33e164",
+    "note": "真实公开原件，仅用于解析与建图评测；未核实当前有效性，不自动审核发布。"
+  },
+  {
+    "id": "dongguan_food_forms",
+    "filename": "dongguan_food_forms.docx",
+    "title": "食品经营许可核发事项申请文书规范（2025年7月修订）",
+    "region": "广东省东莞市",
+    "document_type": "guide",
+    "url": "https://dgamr.dg.gov.cn/attachment/0/354/354678/4320654.docx",
+    "source_page": "https://dgamr.dg.gov.cn/ywgz/zcxkyw/zcxkzyezy/spxk/content/post_4320654.html",
+    "sha256": "feaf46bf1ff1dbdd9bfd1126fb1aa86f7c0297da07f5f4a55586bbe848bc67ac",
+    "note": "真实公开原件，仅用于解析与建图评测；未核实当前有效性，不自动审核发布。"
+  }
+]

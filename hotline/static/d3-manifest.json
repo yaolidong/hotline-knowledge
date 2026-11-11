@@ -1,0 +1,29 @@
+{
+  "packages": [
+    {
+      "name": "d3-dispatch",
+      "version": "3.0.1",
+      "tarball": "https://registry.npmjs.org/d3-dispatch/-/d3-dispatch-3.0.1.tgz",
+      "integrity": "sha512-rzUyPU/S7rwUflMyLc1ETDeBj0NRuHKKAcvukozwhshr6g6c5d8zh4c2gQjY2bZ0dXeGLWc1PF174P2tVvKhfg=="
+    },
+    {
+      "name": "d3-quadtree",
+      "version": "3.0.1",
+      "tarball": "https://registry.npmjs.org/d3-quadtree/-/d3-quadtree-3.0.1.tgz",
+      "integrity": "sha512-04xDrxQTDTCFwP5H6hRhsRcb9xxv2RzkcsygFzmkSIOJy3PeRJP7sNk3VRIbKXcog561P9oU0/rVH6vDROAgUw=="
+    },
+    {
+      "name": "d3-timer",
+      "version": "3.0.1",
+      "tarball": "https://registry.npmjs.org/d3-timer/-/d3-timer-3.0.1.tgz",
+      "integrity": "sha512-ndfJ/JxxMd3nw31uyKoY2naivF+r29V+Lc0svZxe1JvvIRmi8hUsrMvdOwgS1o6uBHmiz91geQ0ylPP0aj1VUA=="
+    },
+    {
+      "name": "d3-force",
+      "version": "3.0.1",
+      "tarball": "https://registry.npmjs.org/d3-force/-/d3-force-3.0.1.tgz",
+      "integrity": "sha512-kAaaHLFebBYwgi5cYBXAI8vKrQFMCD2MEswj2QuPKKbdU1wYLc8WXtS7O8F/b6POCIe3gJjY6hkDstHi1yMETQ=="
+    }
+  ],
+  "bundle_sha256": "566ce16f86e14f5ce9ae1ca71048324ac1cf0585e3fa21795b82024bb009d300"
+}

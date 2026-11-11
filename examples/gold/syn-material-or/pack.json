@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-material-or",
+  "split": "train",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试甲区材料备选事项指南",
+    "region": "测试甲区",
+    "filename": "syn-material-or.txt",
+    "source_path": "sources/syn-material-or/source.txt",
+    "sha256": "7bbd4c2678e118c4458c2ab310c32ce8c3b5954c89813622e786b512c41027a3",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-material-or-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-material-or-c1",
+      "text": "测试甲区材料备选事项指南",
+      "page": 1,
+      "section": "测试甲区材料备选事项指南",
+      "start": 42,
+      "end": 54
+    },
+    {
+      "id": "syn-material-or-c2",
+      "text": "第一条 事项名称：材料备选登记。办理部门：测试服务局。",
+      "page": 1,
+      "section": "第一条 事项名称：材料备选登记。办理部门",
+      "start": 55,
+      "end": 82
+    },
+    {
+      "id": "syn-material-or-c3",
+      "text": "第二条 申请材料：身份证件原件或复印件任选其一。",
+      "page": 1,
+      "section": "第二条 申请材料：身份证件原件或复印件任",
+      "start": 83,
+      "end": 107
+    },
+    {
+      "id": "syn-material-or-c4",
+      "text": "第三条 申请条件：居住在测试甲区。",
+      "page": 1,
+      "section": "第三条 申请条件：居住在测试甲区。",
+      "start": 108,
+      "end": 125
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-material-or-Ser-材料备选登记",
+      "type": "ServiceItem",
+      "name": "材料备选登记",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-material-or-c2",
+          "quote": "事项名称：材料备选登记"
+        }
+      ]
+    },
+    {
+      "id": "syn-material-or-Gov-测试服务局",
+      "type": "GovernmentDepartment",
+      "name": "测试服务局",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-material-or-c2",
+          "quote": "办理部门：测试服务局"
+        }
+      ]
+    },
+    {
+      "id": "syn-material-or-Req-身份证件原件或复",
+      "type": "RequiredMaterial",
+      "name": "身份证件原件或复印件任选其一",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-material-or-c3",
+          "quote": "身份证件原件或复印件任选其一"
+        }
+      ]
+    },
+    {
+      "id": "syn-material-or-Eli-居住在测试甲区",
+      "type": "EligibilityCondition",
+      "name": "居住在测试甲区",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-material-or-c4",
+          "quote": "申请条件：居住在测试甲区"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "材料备选登记",
+      "type": "HANDLED_BY",
+      "target_name": "测试服务局"
+    },
+    {
+      "source_name": "材料备选登记",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "身份证件原件或复印件任选其一"
+    },
+    {
+      "source_name": "材料备选登记",
+      "type": "REQUIRES_CONDITION",
+      "target_name": "居住在测试甲区"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q12",
+      "question": "材料备选登记需要哪些材料？",
+      "must_include": [
+        "任选"
+      ]
+    },
+    {
+      "id": "q13",
+      "question": "材料备选登记是否必须同时提交原件和复印件？",
+      "expect_refuse": true
+    },
+    {
+      "id": "q14",
+      "question": "材料备选登记办理部门？",
+      "must_include": [
+        "测试服务局"
+      ]
+    },
+    {
+      "id": "q15",
+      "question": "材料备选登记申请条件？",
+      "must_include": [
+        "测试甲区"
+      ]
+    },
+    {
+      "id": "q16",
+      "question": "材料备选登记费用？",
+      "expect_refuse": true
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}

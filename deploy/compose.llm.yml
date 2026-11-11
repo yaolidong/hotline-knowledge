@@ -1,0 +1,63 @@
+# 独立项目：docker compose --project-name hotline-llm --env-file deploy/llm.env -f deploy/compose.llm.yml --profile ollama|ollama-gpu|vllm up -d
+# 勿同时启用 ollama 与 ollama-gpu profile（共享 hotline_ollama 卷，端口冲突）。
+services:
+  ollama:
+    profiles: ["ollama"]
+    image: ${OLLAMA_IMAGE:?请设置 OLLAMA_IMAGE}
+    container_name: hotline-llm-ollama
+    ports:
+      - "127.0.0.1:${LLM_HOST_PORT:-11434}:11434"
+    environment:
+      OLLAMA_KEEP_ALIVE: ${OLLAMA_KEEP_ALIVE:-24h}
+    volumes:
+      - hotline_ollama:/root/.ollama
+    restart: unless-stopped
+
+  ollama-gpu:
+    profiles: ["ollama-gpu"]
+    image: ${OLLAMA_IMAGE:?请设置 OLLAMA_IMAGE}
+    container_name: hotline-llm-ollama-gpu
+    ports:
+      - "127.0.0.1:${LLM_HOST_PORT:-11434}:11434"
+    environment:
+      OLLAMA_KEEP_ALIVE: ${OLLAMA_KEEP_ALIVE:-24h}
+    volumes:
+      - hotline_ollama:/root/.ollama
+    gpus: all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  vllm:
+    profiles: ["vllm"]
+    image: ${VLLM_IMAGE:?请设置 VLLM_IMAGE}
+    container_name: hotline-llm-vllm
+    ports:
+      - "127.0.0.1:${LLM_HOST_PORT:-8000}:8000"
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HUGGING_FACE_HUB_TOKEN:-}
+    ipc: host
+    gpus: all
+    command:
+      - --model
+      - ${LLM_MODEL:?请设置 LLM_MODEL}
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8000"
+      - --max-model-len
+      - ${VLLM_MAX_MODEL_LEN:-16384}
+      - --gpu-memory-utilization
+      - ${VLLM_GPU_MEMORY_UTILIZATION:-0.9}
+    volumes:
+      - hotline_vllm_cache:/root/.cache/huggingface
+    restart: unless-stopped
+
+volumes:
+  hotline_ollama:
+  hotline_vllm_cache:

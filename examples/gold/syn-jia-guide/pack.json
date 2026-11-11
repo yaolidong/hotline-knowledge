@@ -1,0 +1,269 @@
+{
+  "schema_version": 2,
+  "pack_id": "syn-jia-guide",
+  "split": "train",
+  "synthetic": true,
+  "annotation_status": "HUMAN_REVIEWED",
+  "annotator": "seed-v0",
+  "reviewer": "seed-v0",
+  "document": {
+    "title": "测试甲区示例登记办事指南",
+    "region": "测试甲区",
+    "filename": "syn-jia-guide.txt",
+    "source_path": "sources/syn-jia-guide/source.txt",
+    "sha256": "c1110c547c7238e615f62b689b5916b689a70c400011c3f80bbe8eb5adb922a7",
+    "document_type": "guide"
+  },
+  "chunks": [
+    {
+      "id": "syn-jia-guide-c0",
+      "text": "【合成测试资料】本文全部内容仅用于软件测试，不是真实或现行政策，不得用于实际办理。",
+      "page": 1,
+      "section": "【合成测试资料】本文全部内容仅用于软件测",
+      "start": 0,
+      "end": 41
+    },
+    {
+      "id": "syn-jia-guide-c1",
+      "text": "测试甲区示例登记办事指南",
+      "page": 1,
+      "section": "测试甲区示例登记办事指南",
+      "start": 42,
+      "end": 54
+    },
+    {
+      "id": "syn-jia-guide-c2",
+      "text": "第一条 事项名称：示例登记。办理部门：测试服务局。",
+      "page": 1,
+      "section": "第一条 事项名称：示例登记。办理部门：测",
+      "start": 55,
+      "end": 80
+    },
+    {
+      "id": "syn-jia-guide-c3",
+      "text": "第二条 申请材料：测试申请表。",
+      "page": 1,
+      "section": "第二条 申请材料：测试申请表。",
+      "start": 81,
+      "end": 96
+    },
+    {
+      "id": "syn-jia-guide-c4",
+      "text": "第三条 申请条件：同时满足年满十八周岁、居住在测试甲区，并且不属于失信情形。",
+      "page": 1,
+      "section": "第三条 申请条件：同时满足年满十八周岁、",
+      "start": 97,
+      "end": 135
+    },
+    {
+      "id": "syn-jia-guide-c5",
+      "text": "第四条 办理流程：提交申请，然后窗口核验。",
+      "page": 1,
+      "section": "第四条 办理流程：提交申请，然后窗口核验",
+      "start": 136,
+      "end": 157
+    },
+    {
+      "id": "syn-jia-guide-c6",
+      "text": "第五条 办理渠道：测试线上平台。",
+      "page": 1,
+      "section": "第五条 办理渠道：测试线上平台。",
+      "start": 158,
+      "end": 174
+    },
+    {
+      "id": "syn-jia-guide-c7",
+      "text": "第六条 政策依据：《合成示例管理规定》第一条。",
+      "page": 1,
+      "section": "第六条 政策依据：《合成示例管理规定》第",
+      "start": 175,
+      "end": 198
+    }
+  ],
+  "expected_entities": [
+    {
+      "id": "syn-jia-guide-Ser-示例登记",
+      "type": "ServiceItem",
+      "name": "示例登记",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c2",
+          "quote": "事项名称：示例登记"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Gov-测试服务局",
+      "type": "GovernmentDepartment",
+      "name": "测试服务局",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c2",
+          "quote": "办理部门：测试服务局"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Req-测试申请表",
+      "type": "RequiredMaterial",
+      "name": "测试申请表",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c3",
+          "quote": "申请材料：测试申请表"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Eli-同时满足年满十八",
+      "type": "EligibilityCondition",
+      "name": "同时满足年满十八周岁、居住在测试甲区，并且不属于失信情形",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c4",
+          "quote": "申请条件：同时满足年满十八周岁、居住在测试甲区，并且不属于失信情形"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Pro-提交申请",
+      "type": "ProcedureStep",
+      "name": "提交申请",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c5",
+          "quote": "办理流程：提交申请，然后窗口核验"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Pro-窗口核验",
+      "type": "ProcedureStep",
+      "name": "窗口核验",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c5",
+          "quote": "办理流程：提交申请，然后窗口核验"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Ser-测试线上平台",
+      "type": "ServiceChannel",
+      "name": "测试线上平台",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c6",
+          "quote": "办理渠道：测试线上平台"
+        }
+      ]
+    },
+    {
+      "id": "syn-jia-guide-Leg-《合成示例管理规",
+      "type": "LegalBasis",
+      "name": "《合成示例管理规定》第一条",
+      "aliases": [],
+      "attributes": {},
+      "evidence": [
+        {
+          "chunk_id": "syn-jia-guide-c7",
+          "quote": "政策依据：《合成示例管理规定》第一条"
+        }
+      ]
+    }
+  ],
+  "expected_relations": [
+    {
+      "source_name": "示例登记",
+      "type": "HANDLED_BY",
+      "target_name": "测试服务局"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "REQUIRES_MATERIAL",
+      "target_name": "测试申请表"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "REQUIRES_CONDITION",
+      "target_name": "同时满足年满十八周岁、居住在测试甲区，并且不属于失信情形"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "HAS_PROCEDURE",
+      "target_name": "提交申请"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "HAS_CHANNEL",
+      "target_name": "测试线上平台"
+    },
+    {
+      "source_name": "示例登记",
+      "type": "BASED_ON",
+      "target_name": "《合成示例管理规定》第一条"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "测试甲区示例登记需要什么材料？",
+      "must_include": [
+        "测试申请表"
+      ],
+      "expect_refuse": false
+    },
+    {
+      "id": "q2",
+      "question": "测试甲区示例登记到哪个部门办理？",
+      "must_include": [
+        "测试服务局"
+      ],
+      "expect_refuse": false
+    },
+    {
+      "id": "q3",
+      "question": "测试甲区示例登记申请条件是什么？",
+      "must_include": [
+        "十八周岁"
+      ],
+      "expect_refuse": false
+    },
+    {
+      "id": "q4",
+      "question": "测试甲区示例登记有没有线上渠道？",
+      "must_include": [
+        "测试线上平台"
+      ],
+      "expect_refuse": false
+    },
+    {
+      "id": "q5",
+      "question": "测试甲区示例登记政策依据是什么？",
+      "must_include": [
+        "合成示例管理规定"
+      ],
+      "expect_refuse": false
+    },
+    {
+      "id": "q6",
+      "question": "测试甲区示例登记收费多少？",
+      "expect_refuse": true
+    }
+  ],
+  "notes": "合成种子金标准；不得当作真实政策。"
+}
